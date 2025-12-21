@@ -45,6 +45,12 @@ python -m spacy download en_core_web_sm
 export HF_HUB_ENABLE_HF_TRANSFER=1
 ```
 
+### Notes for AMD ROCm (e.g., RDNA4) + Docker
+
+- `flash-attn` is CUDA-focused and usually not available on ROCm. If you are using an AMD/ROCm container, skip the `flash-attn` install line.
+- Most model configs in this repo default to `attn_implementation: flash_attention_2`. On ROCm, the code will automatically fall back to `sdpa` when FlashAttention2 is unavailable.
+- If a model config enables `load_in_4bit/load_in_8bit`, it requires `bitsandbytes` and is typically not supported on ROCm. Disable quantization in the corresponding YAML config for AMD/ROCm environments.
+
 ## Demo
 
 `demo.py` contains a minimal example of how to use the ECO method. Given the prompt `Who is Harry Potter?`, we corrupt the prompt by adding random noise to the first dimension of the `Harry` and `Potter` tokens. The corrupted prompt is then fed to the LLM to generate a response using greedy decoding.

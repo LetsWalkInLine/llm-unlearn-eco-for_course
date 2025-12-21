@@ -1,3 +1,4 @@
+import os
 import torch
 from transformers import (
     AutoModelForCausalLM,
@@ -10,6 +11,38 @@ from eco.utils import load_yaml
 
 
 class HFModel:
+    @staticmethod
+    def _flash_attn_available() -> bool:
+        try:
+            import flash_attn  # noqa: F401
+
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def _resolve_attn_implementation(attn_implementation):
+        if attn_implementation is None:
+            return None
+
+        # YAML 里可能写成 "null" 或空字符串
+        if isinstance(attn_implementation, str):
+            attn = attn_implementation.strip()
+            if attn == "" or attn.lower() == "null":
+                return None
+        else:
+            return attn_implementation
+
+        # ROCm(HIP) 下通常不支持 flash-attn；自动降级为 sdpa
+        if attn == "flash_attention_2" and torch.version.hip is not None:
+            return "sdpa"
+
+        # CUDA 下如果没装 flash-attn，也降级
+        if attn == "flash_attention_2" and not HFModel._flash_attn_available():
+            return "sdpa"
+
+        return attn
+
     def __init__(
         self,
         model_name,
@@ -19,6 +52,11 @@ class HFModel:
     ):
         self.model_name = model_name
         self.model_config = load_yaml(f"{config_path}/{model_name}.yaml")
+
+        attn_implementation = self._resolve_attn_implementation(
+            self.model_config.get("attn_implementation")
+        )
+
         quantization_config = (
             BitsAndBytesConfig(
                 load_in_4bit=self.model_config["load_in_4bit"],
@@ -40,6 +78,10 @@ class HFModel:
                 else True
             ),
         }
+
+        if attn_implementation is not None:
+            model_args["attn_implementation"] = attn_implementation
+
 
         self.model = AutoModelForCausalLM.from_pretrained(
             model_path if model_path else self.model_config["hf_name"], **model_args

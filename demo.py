@@ -5,7 +5,7 @@ from eco.model import HFModel
 from eco.utils import seed_everything
 
 seed_everything(0)
-model_name = "Meta-Llama-3-8B-Instruct"
+model_name = "Qwen1.5-4B-Chat"
 model = HFModel(
     model_name=model_name,
     config_path="./config/model_config",
@@ -23,7 +23,8 @@ apply_corruption_hook(
     corrupt_method="rand_noise_first_n",
     # Corrupt "Harry" and "Potter" tokens
     corrupt_args={
-        "pos": [[0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]],
+        # "pos": [[0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0]],
+        "pos": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0]],
         "dims": 1,
         "strength": 100,
     },
