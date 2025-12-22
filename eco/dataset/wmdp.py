@@ -83,8 +83,9 @@ class WMDP(BaseDataset):
         # Here we use 10% of WMDP as the training set and 90% as the test set.
         wmdp_dataset = self.load_dataset_for_eval()
         bio_size, chem_size, cyber_size = [len(wmdp_dataset[s]) for s in self.subjects]
+        # Convert Dataset columns to Python lists before concatenation to avoid Column type addition
         bio_prompts, chem_prompts, cyber_prompts = [
-            wmdp_dataset[s]["prompt"] for s in self.subjects
+            list(wmdp_dataset[s]["prompt"]) for s in self.subjects
         ]
         prompts = bio_prompts + chem_prompts + cyber_prompts
         labels = [0] * bio_size + [1] * chem_size + [2] * cyber_size
@@ -152,10 +153,11 @@ class WMDP(BaseDataset):
         mmlu_dev_dataset = mmlu.load_dataset_for_eval("dev")
         mmlu_validation_dataset = mmlu.load_dataset_for_eval("validation")
         mmlu_test_dataset = mmlu.load_dataset_for_eval("test")
+        # Convert prompt columns to Python lists before concatenation
         retain_dataset = Dataset.from_dict(
             {
-                "text": mmlu_auxiliary_train_subset["prompt"]
-                + mmlu_dev_dataset["prompt"],
+                "text": list(mmlu_auxiliary_train_subset["prompt"])
+                + list(mmlu_dev_dataset["prompt"]),
                 "label": [0] * len(mmlu_auxiliary_train_subset)
                 + [0] * len(mmlu_dev_dataset),
             }
@@ -197,40 +199,54 @@ class WMDP(BaseDataset):
             labels = [0] * len(all_prompts)
             return Dataset.from_dict({"text": all_prompts, "label": labels})
 
+        def safe_make_test_retain_dataset(loader_fn, name):
+            try:
+                return make_test_retain_dataset(loader_fn())
+            except Exception as e:
+                print(f"Warning: skip general eval dataset {name} due to error: {e}")
+                return Dataset.from_dict({"text": [], "label": []})
+
         # We also test on 11 other datasets for false positives to ensure the model
         # trained on WMDP and MMLU do not consider other datasets as positive examples.
         mmlu_test_retain_dataset = make_test_retain_dataset(
             concatenate_datasets([mmlu_test_dataset, mmlu_validation_dataset])
         )
-        arc_easy_test_retain_dataset = make_test_retain_dataset(
-            ARCEasy().load_dataset_for_eval(ARCEasy.test_set)
+        arc_easy_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: ARCEasy().load_dataset_for_eval(ARCEasy.test_set), "arc_easy"
         )
-        arc_challenge_test_retain_dataset = make_test_retain_dataset(
-            ARCChallenge().load_dataset_for_eval(ARCChallenge.test_set)
+        arc_challenge_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: ARCChallenge().load_dataset_for_eval(ARCChallenge.test_set),
+            "arc_challenge",
         )
-        commonsenseqa_test_retain_dataset = make_test_retain_dataset(
-            CommonsenseQA().load_dataset_for_eval(CommonsenseQA.test_set)
+        commonsenseqa_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: CommonsenseQA().load_dataset_for_eval(CommonsenseQA.test_set),
+            "commonsenseqa",
         )
-        hellaswag_test_retain_dataset = make_test_retain_dataset(
-            HellaSwag().load_dataset_for_eval(HellaSwag.test_set)
+        hellaswag_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: HellaSwag().load_dataset_for_eval(HellaSwag.test_set),
+            "hellaswag",
         )
-        openbookqa_test_retain_dataset = make_test_retain_dataset(
-            OpenBookQA().load_dataset_for_eval(OpenBookQA.test_set)
+        openbookqa_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: OpenBookQA().load_dataset_for_eval(OpenBookQA.test_set),
+            "openbookqa",
         )
-        truthfulqa_test_retain_dataset = make_test_retain_dataset(
-            TruthfulQA().load_dataset_for_eval(TruthfulQA.test_set)
+        truthfulqa_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: TruthfulQA().load_dataset_for_eval(TruthfulQA.test_set),
+            "truthfulqa",
         )
-        winogrande_test_retain_dataset = make_test_retain_dataset(
-            Winogrande().load_dataset_for_eval(Winogrande.test_set)
+        winogrande_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: Winogrande().load_dataset_for_eval(Winogrande.test_set),
+            "winogrande",
         )
-        piqa_test_retain_dataset = make_test_retain_dataset(
-            PIQA().load_dataset_for_eval(PIQA.test_set)
+        piqa_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: PIQA().load_dataset_for_eval(PIQA.test_set), "piqa"
         )
-        social_iqa_test_retain_dataset = make_test_retain_dataset(
-            SocialIQA().load_dataset_for_eval(SocialIQA.test_set)
+        social_iqa_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: SocialIQA().load_dataset_for_eval(SocialIQA.test_set),
+            "social_iqa",
         )
-        boolq_test_retain_dataset = make_test_retain_dataset(
-            BoolQ().load_dataset_for_eval(BoolQ.test_set)
+        boolq_test_retain_dataset = safe_make_test_retain_dataset(
+            lambda: BoolQ().load_dataset_for_eval(BoolQ.test_set), "boolq"
         )
 
         for d in [

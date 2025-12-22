@@ -1,4 +1,5 @@
 import argparse
+import inspect
 
 import numpy as np
 import torch
@@ -54,11 +55,11 @@ def compute_metrics(eval_pred):
 model_name = "roberta-base"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-if args.dataset == "tofu":
+if args.dataset_name == "tofu":
     assert args.tofu_subset_name is not None, "Must provide tofu_subset_name"
     data_module = dataset_classes[args.dataset_name](tokenizer, max_length=512)
     dataset = data_module.load_dataset_for_classification(args.tofu_subset_name)
-elif args.dataset == "mmlu-subset":
+elif args.dataset_name == "mmlu-subset":
     assert args.mmlu_subset_name is not None, "Must provide mmlu_subset_name"
     subset_to_cls = {
         "economics": [
@@ -122,6 +123,20 @@ model.config.classifier_dropout = 0.1
 print(model)
 print(f"Number of parameters: {model.num_parameters()}")
 
+# Build TrainingArguments kwargs with version compatibility for strategy parameters
+strategy_kwargs = {}
+sig = inspect.signature(TrainingArguments.__init__)
+if "evaluation_strategy" in sig.parameters:
+    strategy_kwargs["evaluation_strategy"] = "steps"
+elif "eval_strategy" in sig.parameters:
+    strategy_kwargs["eval_strategy"] = "steps"
+
+if "logging_strategy" in sig.parameters:
+    strategy_kwargs["logging_strategy"] = "steps"
+
+if "save_strategy" in sig.parameters:
+    strategy_kwargs["save_strategy"] = "steps"
+
 training_args = TrainingArguments(
     overwrite_output_dir=True,
     output_dir=f"{args.dataset_name}_classifier",
@@ -136,18 +151,16 @@ training_args = TrainingArguments(
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     num_train_epochs=30,
-    logging_strategy="steps",
     logging_steps=1000,
     do_eval=True,
-    evaluation_strategy="steps",
     eval_steps=1000,
-    save_strategy="steps",
     save_steps=1000,
     save_total_limit=20,
     load_best_model_at_end=True,
     metric_for_best_model="forget_errors",
     greater_is_better=False,
     report_to="none",
+    **strategy_kwargs,
 )
 
 trainer = CustomTrainer(
