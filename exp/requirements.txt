@@ -1,0 +1,16 @@
+accelerate
+datasets
+hf_transfer
+numpy
+pandas
+pytest
+rouge_score
+sacrebleu
+scipy
+sentencepiece
+spacy
+torch
+transformers
+pyyaml
+matplotlib
+ipykernel

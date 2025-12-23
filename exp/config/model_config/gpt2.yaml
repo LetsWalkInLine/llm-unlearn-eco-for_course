@@ -1,0 +1,6 @@
+embedding_dim: 768
+attack_module: transformer.wte
+hf_name: gpt2
+attn_implementation: null
+load_in_8bit: false
+load_in_4bit: false

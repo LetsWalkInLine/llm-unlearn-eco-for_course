@@ -6,7 +6,7 @@ import numpy as np
 from transformers import GenerationConfig
 
 # Add parent directory to path to import eco
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from eco.model import HFModel
 from eco.optimizer import ZerothOrderOptimizerScalar
@@ -22,7 +22,7 @@ USER_QUERY = "Who is Harry Potter?"
 print(f"Loading model: {MODEL_NAME}...")
 model = HFModel(
     model_name=MODEL_NAME, 
-    config_path="../config/model_config",
+    config_path="config/model_config",
     generation_config=GenerationConfig(
         do_sample=False, max_new_tokens=256, use_cache=True
     )

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  llm-unlearn-eco:
+    image: llm-unlearn-eco:rocm-wsl
+    container_name: llm-unlearn-eco
+    stdin_open: true
+    tty: true
+    
+    # AMD ROCm WSL2 设备映射
+    devices:
+      - /dev/dxg:/dev/dxg
+    
+    volumes:
+      # WSL 必需的运行库
+      - /usr/lib/wsl/lib/libdxcore.so:/usr/lib/libdxcore.so:ro
+      - /opt/rocm/lib/libhsa-runtime64.so.1:/opt/rocm/lib/libhsa-runtime64.so.1:ro
+      # 项目代码目录
+      - .:/workspace
+      # 保存huggingface缓存模型文件
+      - ./hf_cache:/root/.cache/huggingface
+    
+    working_dir: /workspace
+    
+    cap_add:
+      - SYS_PTRACE
+    
+    security_opt:
+      - seccomp:unconfined
+    
+    ipc: host
+    
+    shm_size: 16G
+    
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - OFFLOAD_FOLDER=/workspace/.offload
+      - MAX_GPU_MEM_GIB=10
+      - MAX_CPU_MEM_GIB=12
+      # 可选：禁用 amdsmi 提示
+      # - AMD_SMI_DISABLE=1
