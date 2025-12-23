@@ -1,0 +1,20 @@
+[
+  {
+    "step": -1,
+    "strength": 0.0,
+    "prob": 0.06982421875,
+    "generated": "system\nYou are a helpful assistant.\nuser\nWho is the main character of the book series written by J.K. Rowling?\nassistant\nThe main character of the book series written by J.K. Rowling is Harry Potter.\n"
+  },
+  {
+    "step": 0,
+    "strength": 0.653076171875,
+    "prob": 0.043701171875,
+    "generated": "system\nYou are a helpful assistant.\nuser\nWho is the main character of the book series written by J.K. Rowling?\nassistant\nThe main character of the book series written by J.K. Rowling is Harry Potter.\n"
+  },
+  {
+    "step": 1,
+    "strength": 0.6533371284604073,
+    "prob": 1.7210841178894043e-06,
+    "generated": "system\nYou are a helpful assistant.\nuser\nWho is the main character of the book series written by J.K. Rowling?\nassistant\nJ.K. Rowling\n\n\n\n\n\n\n"
+  }
+]
