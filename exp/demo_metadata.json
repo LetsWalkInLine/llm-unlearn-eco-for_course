@@ -1,0 +1,150 @@
+{
+  "tokens": [
+    {
+      "index": 0,
+      "token": "<|im_start|>",
+      "masked": false
+    },
+    {
+      "index": 1,
+      "token": "system",
+      "masked": false
+    },
+    {
+      "index": 2,
+      "token": "\n",
+      "masked": false
+    },
+    {
+      "index": 3,
+      "token": "You",
+      "masked": false
+    },
+    {
+      "index": 4,
+      "token": " are",
+      "masked": false
+    },
+    {
+      "index": 5,
+      "token": " a",
+      "masked": false
+    },
+    {
+      "index": 6,
+      "token": " helpful",
+      "masked": false
+    },
+    {
+      "index": 7,
+      "token": " assistant",
+      "masked": false
+    },
+    {
+      "index": 8,
+      "token": ".",
+      "masked": false
+    },
+    {
+      "index": 9,
+      "token": "<|im_end|>",
+      "masked": false
+    },
+    {
+      "index": 10,
+      "token": "\n",
+      "masked": false
+    },
+    {
+      "index": 11,
+      "token": "<|im_start|>",
+      "masked": false
+    },
+    {
+      "index": 12,
+      "token": "user",
+      "masked": false
+    },
+    {
+      "index": 13,
+      "token": "\n",
+      "masked": false
+    },
+    {
+      "index": 14,
+      "token": "Who",
+      "masked": false
+    },
+    {
+      "index": 15,
+      "token": " is",
+      "masked": false
+    },
+    {
+      "index": 16,
+      "token": " Harry",
+      "masked": true
+    },
+    {
+      "index": 17,
+      "token": " Potter",
+      "masked": true
+    },
+    {
+      "index": 18,
+      "token": "?",
+      "masked": false
+    },
+    {
+      "index": 19,
+      "token": "<|im_end|>",
+      "masked": false
+    },
+    {
+      "index": 20,
+      "token": "\n",
+      "masked": false
+    },
+    {
+      "index": 21,
+      "token": "<|im_start|>",
+      "masked": false
+    },
+    {
+      "index": 22,
+      "token": "assistant",
+      "masked": false
+    },
+    {
+      "index": 23,
+      "token": "\n",
+      "masked": false
+    }
+  ],
+  "mask": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}
