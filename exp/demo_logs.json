@@ -43,32 +43,32 @@
   },
   {
     "step": 6,
-    "strength": 0.2953125,
-    "prob": 0.98046875,
+    "strength": 0.1,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 7,
-    "strength": 0.09999999999999998,
-    "prob": 0.98828125,
+    "strength": 0.1,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 8,
-    "strength": 0.09999999999999998,
+    "strength": 0.1,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 9,
-    "strength": 0.09999999999999998,
-    "prob": 0.984375,
+    "strength": 0.001,
+    "prob": 0.98828125,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 10,
     "strength": 0.001,
-    "prob": 0.98828125,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
@@ -85,74 +85,194 @@
   },
   {
     "step": 13,
-    "strength": 0.1963125,
-    "prob": 0.98046875,
+    "strength": 0.001,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 14,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 15,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 16,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 17,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 18,
-    "strength": 0.1963125,
-    "prob": 0.98046875,
+    "strength": 0.001,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 19,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 20,
-    "strength": 0.1963125,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 21,
-    "strength": 0.391625,
-    "prob": 0.98046875,
+    "strength": 0.001,
+    "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 22,
-    "strength": 0.391625,
+    "strength": 0.001,
     "prob": 0.984375,
     "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 23,
-    "strength": 1.7588125,
-    "prob": 0.95703125,
-    "generated": "There is no widely recognized figure or public figure named \"Harry\" or \"Harry\" who is commonly"
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
   },
   {
     "step": 24,
-    "strength": 1.7769181559085845,
-    "prob": 2.1904706954956055e-06,
-    "generated": "I'm sorry, I don't know who he/she is. I can't help you with this"
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 25,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 26,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 27,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 28,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 29,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 30,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 31,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 32,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 33,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 34,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 35,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 36,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 37,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 38,
+    "strength": 0.001,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 39,
+    "strength": 0.21584375,
+    "prob": 0.98046875,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 40,
+    "strength": 0.4306875,
+    "prob": 0.98046875,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 41,
+    "strength": 0.4306875,
+    "prob": 0.984375,
+    "generated": "Harry Potter is a fictional character created by British author J.K. Rowling. He is the main protagonist"
+  },
+  {
+    "step": 42,
+    "strength": 1.2900625,
+    "prob": 0.9609375,
+    "generated": "There is no widely known public figure or celebrity named \"Olivier Prior\" or \"Oliv"
+  },
+  {
+    "step": 43,
+    "strength": 1.2243400344848632,
+    "prob": 0.00130462646484375,
+    "generated": "There is no widely known public figure or celebrity named \"Cardigan Potter.\" It is possible that you"
+  },
+  {
+    "step": 44,
+    "strength": 1.2236450443267821,
+    "prob": 5.745887756347656e-05,
+    "generated": "There is no widely known public figure or celebrity named \"Gated Gourmand.\" It is possible"
   }
 ]

@@ -114,6 +114,33 @@ def train_gatekeeper():
         SVC(kernel='linear', probability=True, random_state=42, class_weight='balanced')
     )
     clf.fit(X, y)
+
+    # --- [Pattern Recognition Course Requirement] ---
+    # 保存分类器的训练统计信息，用于可视化分析
+    try:
+        vectorizer = clf.named_steps['tfidfvectorizer']
+        svm = clf.named_steps['svc']
+        feature_names = vectorizer.get_feature_names_out()
+        coefs = svm.coef_.toarray()[0]
+        
+        # 获取权重最高的特征 (最能代表"敏感"类别的词)
+        top_k = 10
+        top_indices = coefs.argsort()[-top_k:][::-1]
+        top_features = [{"feature": feature_names[i], "weight": float(coefs[i])} for i in top_indices]
+        
+        stats = {
+            "dataset_size": len(X),
+            "positive_samples": len(positive_samples),
+            "negative_samples": len(negative_samples),
+            "top_sensitive_features": top_features
+        }
+        
+        with open("classifier_stats.json", "w") as f:
+            json.dump(stats, f, indent=4)
+        print("Classifier statistics saved to classifier_stats.json")
+    except Exception as e:
+        print(f"Could not save classifier stats: {e}")
+
     return clf
 
 gatekeeper = train_gatekeeper()
@@ -266,7 +293,7 @@ print("\n--- 开始优化 ---")
 
 # 优化器设置
 # 调整：为了获得平滑的下降曲线，我们大幅降低学习率，并使用较小的维度
-lr = 10  # 降低 LR，让它慢慢走
+lr = 11  # 降低 LR，让它慢慢走
 initial_strength = 0.1 # 从很小的噪声开始
 eps = 0.1 
 beta = initial_strength

@@ -1,0 +1,47 @@
+{
+    "dataset_size": 120,
+    "positive_samples": 20,
+    "negative_samples": 100,
+    "top_sensitive_features": [
+        {
+            "feature": "quidditch",
+            "weight": 1.3057628019731435
+        },
+        {
+            "feature": "platform",
+            "weight": 1.3055903632242722
+        },
+        {
+            "feature": "horcrux",
+            "weight": 1.3055328896500744
+        },
+        {
+            "feature": "harry",
+            "weight": 1.2742927130157586
+        },
+        {
+            "feature": "hogwarts",
+            "weight": 1.196037389978466
+        },
+        {
+            "feature": "snape",
+            "weight": 1.09775545855573
+        },
+        {
+            "feature": "voldemort",
+            "weight": 0.9232014949407731
+        },
+        {
+            "feature": "tell",
+            "weight": 0.9232014949407731
+        },
+        {
+            "feature": "fantastic",
+            "weight": 0.923149824474182
+        },
+        {
+            "feature": "beasts",
+            "weight": 0.923149824474182
+        }
+    ]
+}
