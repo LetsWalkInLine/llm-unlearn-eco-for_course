@@ -300,11 +300,11 @@ print("\n--- 开始优化 ---")
 
 # 优化器设置
 # 调整：为了获得平滑的下降曲线，本实践大幅降低学习率，并使用较小的维度
-lr = 11  # 降低 LR，让它慢慢走
+lr = 15  # 降低 LR，让它慢慢走
 initial_strength = 0.1 # 从很小的噪声开始
-eps = 0.1 
-beta = initial_strength
-min_beta = 0.001
+eps = 0.05 
+beta = initial_strength * 0.999
+min_beta = 0.1
 num_steps = 50
 
 optimizer = ZerothOrderOptimizerScalar(
