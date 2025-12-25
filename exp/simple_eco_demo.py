@@ -19,11 +19,10 @@ from eco.attack.utils import apply_corruption_hook, get_nested_attr, remove_hook
 
 MODEL_NAME = "Qwen1.5-4B-Chat"
 SENSITIVE_KEYWORDS = ["Harry", "Potter"]
-TARGET_ANSWER = "Harry" # 我们想要抑制的答案的第一个 Token
+TARGET_ANSWER = "Harry" # 本实践想要抑制的答案的第一个Token
 USER_QUERY = "Who is Harry Potter?"
 
 # --- 1.5 模式识别模块 (Pattern Recognition) ---
-# 为了满足课程要求，我们引入一个基于 SVM 的分类器作为“安全门控”。
 # 数据集：构建自 SQuAD 和 Wikipedia 的 "HP-Sensitivity" 子集。
 
 def train_gatekeeper():
@@ -31,7 +30,7 @@ def train_gatekeeper():
     
     # --- 1. 正样本 (Sensitive): 特定领域的敏感问题 ---
     # 在实际场景中，这通常来自特定任务的 "Forget Set" (如 TOFU 数据集)
-    # 这里我们定义关于 "Harry Potter" 的领域知识为敏感数据
+    # 这里定义关于 "Harry Potter" 的领域知识为敏感数据
     positive_samples = [
         "Who is Harry Potter?",
         "What house is Harry in at Hogwarts?",
@@ -56,7 +55,7 @@ def train_gatekeeper():
     ]
 
     # --- 2. 负样本 (Safe): 通用常识问题 ---
-    # 为了提升实验的权威性，我们尝试使用 SQuAD (Stanford Question Answering Dataset) 
+    # 为了提升实验的权威性，本实践尝试使用 SQuAD (Stanford Question Answering Dataset) 
     # 作为"通用/安全"知识的来源。
     negative_samples = []
     try:
@@ -97,8 +96,8 @@ def train_gatekeeper():
         ]
 
     # 确保正负样本平衡 (虽然 SVM 对不平衡有一定容忍度，但平衡更好)
-    # 如果 SQuAD 加载了太多，我们截取一部分，或者通过 class_weight='balanced' 处理
-    # 这里我们简单截取，保持大约 1:5 的比例即可，让负样本多一些代表通用性
+    # 如果 SQuAD 加载了太多，本实践截取一部分，或者通过 class_weight='balanced' 处理
+    # 这里简单截取，保持大约 1:5 的比例即可，让负样本多一些代表通用性
     if len(negative_samples) > 100:
         negative_samples = negative_samples[:100]
 
@@ -143,18 +142,26 @@ def train_gatekeeper():
 
     return clf
 
+# --- 1.6 运行门控检查 (Gatekeeping Check) ---
+# 实例化并训练分类器
 gatekeeper = train_gatekeeper()
+
+# 对当前用户查询进行推理，获取属于"敏感类"(索引1)的概率
 is_sensitive_prob = gatekeeper.predict_proba([USER_QUERY])[0][1]
 print(f"Query: '{USER_QUERY}'")
 print(f"Sensitivity Score: {is_sensitive_prob:.4f}")
 
+# 设定阈值为 0.5。如果概率低于阈值，视为安全查询，无需遗忘干预。
 if is_sensitive_prob < 0.5:
     print("Query is SAFE. Skipping ECO optimization.")
     sys.exit(0)
 else:
     print("Query is SENSITIVE. Initiating ECO Unlearning process...")
 
+# --- 1.7 加载大语言模型 (LLM Loading) ---
 print(f"Loading model: {MODEL_NAME}...")
+# 使用 eco 库封装的 HFModel 类加载模型 (Qwen1.5-4B-Chat)
+# config_path 指向模型配置文件，generation_config 设定生成参数
 model = HFModel(
     model_name=MODEL_NAME, 
     config_path="config/model_config",
@@ -163,6 +170,7 @@ model = HFModel(
     )
 )
 
+# 获取分词器并处理 pad_token 缺失的常见问题
 tokenizer = model.tokenizer
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
@@ -182,7 +190,7 @@ input_ids = inputs.input_ids
 prompt_len = input_ids.shape[1]
 
 # 创建腐蚀 Mask (pos)
-# 我们手动查找包含敏感关键词的 Token 索引
+# 本实践手动查找包含敏感关键词的 Token 索引
 mask = [0] * prompt_len
 tokens = tokenizer.convert_ids_to_tokens(input_ids[0])
 
@@ -208,10 +216,8 @@ for i, token in enumerate(tokens):
 # 但模型生成的是 ANSWER。
 # 腐蚀应该应用于 PROMPT Token，以便在模型开始生成答案之前破坏其内部状态。
 # 然而，Qwen 的聊天模板可能会将 "Harry Potter" 部分放在后面。
-# 让我们仔细检查是否 Mask 了正确的内容。
-
 # 此外，对于 Qwen/GPT 模型，有时 "Harry Potter" 中的 "Harry" 会被拆分或带有前缀。
-# 让我们确保捕获到了它们。
+# 因此这里捕捉并打印验证
 
 print(f"生成的 Mask: {mask}")
 if sum(mask) == 0:
@@ -225,11 +231,11 @@ target_id = target_ids[0, 0] # "Harry" 的第一个 Token
 
 def objective_function(strength, model, input_ids, target_id, mask):
     # 1. 应用腐蚀 Hook
-    # 我们直接使用底层 API，类似于 demo.py
+    # 本实践直接使用底层 API
     # 关键修复：'pos' 期望一个列表的列表 (batch_size, seq_len)
     # 并且它必须与 input_ids 的长度完全匹配。
     
-    # 调试：打印攻击模块以确保我们 Hook 到了正确的东西
+    # 调试：打印攻击模块以确保本实践 Hook 到了正确的东西
     # print(f"Attacking module: {model.model_config['attack_module']}")
     
     hook = apply_corruption_hook(
@@ -243,15 +249,15 @@ def objective_function(strength, model, input_ids, target_id, mask):
     )
     
     # 2. 前向传播获取概率
-    # 我们必须确保 Hook 实际上被触发了。
+    # 本实践必须确保 Hook 实际上被触发了。
     # Hook 注册在 Embedding 层上。
-    # 当我们调用 model.model(input_ids) 时，Embedding 层会被调用。
+    # 当本实践调用 model.model(input_ids) 时，Embedding 层会被调用。
     
     with torch.no_grad():
         outputs = model.model(input_ids=input_ids)
         # 输出 logits 对应于每个位置的下一个 Token 的预测。
-        # 我们想要 Prompt 结束后的那个 Token 的预测。
-        # 所以我们看序列中最后一个 Token 的 logits。
+        # 本实践想要 Prompt 结束后的那个 Token 的预测。
+        # 所以本实践看序列中最后一个 Token 的 logits。
         logits = outputs.logits[0, -1, :] 
         probs = torch.softmax(logits, dim=-1)
         target_prob = probs[target_id].item()
@@ -292,7 +298,7 @@ logs = []
 print("\n--- 开始优化 ---")
 
 # 优化器设置
-# 调整：为了获得平滑的下降曲线，我们大幅降低学习率，并使用较小的维度
+# 调整：为了获得平滑的下降曲线，本实践大幅降低学习率，并使用较小的维度
 lr = 11  # 降低 LR，让它慢慢走
 initial_strength = 0.1 # 从很小的噪声开始
 eps = 0.1 
