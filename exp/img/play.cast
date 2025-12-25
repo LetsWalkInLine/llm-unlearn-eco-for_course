@@ -1,5 +1,5 @@
 {"version": 2, "width": 302, "height": 24, "timestamp": 1766655949, "env": {"SHELL": "/bin/bash", "TERM": "xterm-256color"}}
-[0.014081, "o", "\u001b[?2004h\u001b]0;lwl@LetsStartWW3: /mnt/c/My Private Software/Learning/人工智能安全/llm-unlearn-eco-for_course/exp\u0007\u001b[01;32mlwl@LetsStartWW3\u001b[00m:\u001b[01;34m/mnt/c/My Private Software/Learning/人工智能安全/llm-unlearn-eco-for_course/exp\u001b[00m$ "]
+[0.014081, "o", "\u001b[?2004h\u001b]0;lwl@LetsStartWW3: /mnt/c/My Private Software/Learning/模式识别/llm-unlearn-eco-for_course/exp\u0007\u001b[01;32mlwl@LetsStartWW3\u001b[00m:\u001b[01;34m/mnt/c/My Private Software/Learning/模式识别/llm-unlearn-eco-for_course/exp\u001b[00m$ "]
 [0.789449, "o", "d"]
 [0.882733, "o", "o"]
 [1.008509, "o", "c"]
@@ -40,7 +40,7 @@
 [7.558823, "o", "c"]
 [7.636335, "o", "o"]
 [8.080451, "o", "\r\n\u001b[?2004l\r"]
-[8.155422, "o", "\u001b[33mWARN\u001b[0m[0000] /mnt/c/My Private Software/Learning/人工智能安全/llm-unlearn-eco-for_course/exp/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion \r\n"]
+[8.155422, "o", "\u001b[33mWARN\u001b[0m[0000] /mnt/c/My Private Software/Learning/模式识别/llm-unlearn-eco-for_course/exp/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion \r\n"]
 [8.606941, "o", "\u001b[?2004h\u001b]0;root@8039fd535dec: /workspace\u0007root@8039fd535dec:/workspace# "]
 [9.118231, "o", "p"]
 [9.244939, "o", "y"]
@@ -148,6 +148,6 @@
 [107.975528, "o", "元数据已保存至 /workspace/demo_metadata.json\r\n"]
 [109.143423, "o", "\u001b[?2004h\u001b]0;root@8039fd535dec: /workspace\u0007root@8039fd535dec:/workspace# "]
 [111.407027, "o", "\u001b[?2004l\r\r\nexit\r\n"]
-[111.63675, "o", "\u001b[?2004h\u001b]0;lwl@LetsStartWW3: /mnt/c/My Private Software/Learning/人工智能安全/llm-unlearn-eco-for_course/exp\u0007\u001b[01;32mlwl@LetsStartWW3\u001b[00m:\u001b[01;34m/mnt/c/My Private Software/Learning/人工智能安全/llm-unlearn-eco-for_course/exp\u001b[00m$ "]
+[111.63675, "o", "\u001b[?2004h\u001b]0;lwl@LetsStartWW3: /mnt/c/My Private Software/Learning/模式识别/llm-unlearn-eco-for_course/exp\u0007\u001b[01;32mlwl@LetsStartWW3\u001b[00m:\u001b[01;34m/mnt/c/My Private Software/Learning/模式识别/llm-unlearn-eco-for_course/exp\u001b[00m$ "]
 [112.153779, "o", "\u001b[?2004l\r\r\n"]
 [112.153993, "o", "exit\r\n"]
